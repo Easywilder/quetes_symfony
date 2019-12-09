@@ -10,12 +10,12 @@ class DefaultController extends AbstractController
 {
 
     /**
-     * @Route("/", name="app_index")
+     * @Route("/home", name="app_index")
      */
     public function index() :Response
     {
         return $this->render('wild/index.html.twig', [
             'website' => 'Default',
-        ]);
+       ]);
     }
 }
