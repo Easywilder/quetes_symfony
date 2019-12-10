@@ -7,6 +7,7 @@ use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use PhpParser\Node\Scalar\String_;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,6 +48,7 @@ class WildController extends AbstractController
         ]);
         */
     }
+
 
     /**
      * Getting a program with a formatted slug for title
@@ -178,30 +180,29 @@ class WildController extends AbstractController
     /**
      * Getting a program with a formatted slug for title
      *
-     * @Route("/showByEpisode/{id<^[a-z0-9-]+$>}",name="show_episode")
-     * @param int $id
+     * @Route("/showByEpisode/{episodeid<^[a-z0-9-]+$>}",name="show_episode")
+     * @ParamConverter("episode", class="App\Entity\Episode", options={"id"="episodeid"})
+     * @param Episode $episode    l'épisode de ma série
      * @return Response
      */
 
-    public function showByEpisode(?int $id): Response
+    public function showByEpisode(Episode $episode): Response
     {
-
-        $episode = $this->getDoctrine ()
-            ->getRepository (Episode::class)
-            ->find($id);
 
         if (!$episode) {
             throw $this->createNotFoundException (
-                'No episode with id :' . $id
+                'No episode with this . $id '
             );
         }
 
         return $this->render ('wild/show_episode.html.twig', [
            'episode' => $episode,
 
+
         ]);
 
     }
+
 
 
 }

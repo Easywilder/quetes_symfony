@@ -2,14 +2,19 @@
 
 {% block body %}
 
-    <h3>{{ episode.title }}</h3>
+    <h3>Episode : {{ episode.title }}</h3>
+    {# {{ dump(episode.season.program.title) }}  #}
 
-    <p>Synopsis :  {{ episode.synopsis }}</p>
-    {#
+    <p>Synopsis : {{ episode.synopsis }}</p>
+    <p>Série : {{ episode.season.program.title }}</p>
+    <p>Saison : {{ episode.season.id }}</p>
 
-        {%  for episode in episodes.season %}
-     <p>{{path('wild_show_episode',{'id': season.episodes.id})}}">{{ episode.title }}</p>
+
+        {%  for episod in episode.season.episodes %}
+            <p>
+                <a href = "{{path('wild_show_episode',{'episodeid': episod.id})}}">{{ episod.title }}</a>
+            </p>
         {% endfor %}
-    #}
+
 
 {% endblock %}
