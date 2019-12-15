@@ -106,42 +106,36 @@ class WildController extends AbstractController
         );
 
     }
+
     /**
      * Getting a program with a formatted slug for title
      *
-     * @Route("/showByprogram/{slug<^[a-z0-9-]+$>}",name="show_program")
-     * @param string $slug
+     * @Route("/showByprogram/{id}",name="show_program")
+     * @param int $id
      * @return Response
      */
 
-    public function showByProgram(?string $slug): Response
+    public function showByProgram(?int $id): Response
     {
-        if (!$slug) {
+        if (!$id) {
             throw $this
                 ->createNotFoundException ('No slug has been sent to find a program in program\'s table.');
         }
-        $slug = preg_replace (
-            '/-/',
-            ' ', ucwords (trim (strip_tags ($slug)), "-")
-        );
+
         $program = $this->getDoctrine ()
             ->getRepository (Program::class)
-            ->findOneBy (['title' => mb_strtolower ($slug)]);
+            ->findOneBy (['id' =>($id)]);
 
 
         if (!$program) {
             throw $this->createNotFoundException (
-                'No program with ' . $slug . ' title, found in program\'s table.'
+                'No program with ' . $id . ' title, found in program\'s table.'
             );
         }
-        $season = $this->getDoctrine ()
-            ->getRepository (Season::class);
-
 
         return $this->render ('wild/show.html.twig', [
             'program' => $program,
-            'season' => $season,
-            'slug' => $slug
+            'id' => $id
         ]);
     }
 
@@ -158,7 +152,7 @@ class WildController extends AbstractController
 
         $season = $this->getDoctrine ()
             ->getRepository (Season::class)
-            ->find($id);
+            ->find ($id);
 
 
         if (!$season) {
@@ -167,10 +161,10 @@ class WildController extends AbstractController
             );
         }
 
-        $episodes = $season->getEpisodes();
+        $episodes = $season->getEpisodes ();
 
         return $this->render ('wild/show_season.html.twig', [
-            'episodes'=> $episodes,
+            'episodes' => $episodes,
             'season' => $season,
             'id' => $id
         ]);
@@ -182,7 +176,7 @@ class WildController extends AbstractController
      *
      * @Route("/showByEpisode/{episodeid<^[a-z0-9-]+$>}",name="show_episode")
      * @ParamConverter("episode", class="App\Entity\Episode", options={"id"="episodeid"})
-     * @param Episode $episode    l'épisode de ma série
+     * @param Episode $episode l'épisode de ma série
      * @return Response
      */
 
@@ -196,16 +190,20 @@ class WildController extends AbstractController
         }
 
         return $this->render ('wild/show_episode.html.twig', [
-           'episode' => $episode,
-
-
+            'episode' => $episode,
         ]);
+    }
+}
+  //  /**
+  //   * @Route("wild/showByEpisode/show_season.html.twig")
+  //   */
+
+   /* public function returnPageSeason()
+    {
 
     }
-
-
-
 }
+*/
 
 
 
