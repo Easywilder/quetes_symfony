@@ -1,17 +1,25 @@
 <?php
 // src/Controller/WildController.php
 namespace App\Controller;
+//namespace App\Form;  //ajouté pour la quête form
 
 use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
-use PhpParser\Node\Scalar\String_;
+use App\Form\CategoryType;
+use App\Form\ProgramSearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+// ajouté pour la quête form
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * @Route("/wild", name="wild_")
@@ -43,12 +51,8 @@ class WildController extends AbstractController
             'wild/index.html.twig',
             ['programs' => $programs]
         );
-        /*return $this->render('wild/index.html.twig', [
-            'website' => 'Wild séries',
-        ]);
-        */
-    }
 
+    }
 
     /**
      * Getting a program with a formatted slug for title
@@ -94,11 +98,10 @@ class WildController extends AbstractController
         $category = $this->getDoctrine ()
             ->getRepository (Category::class)
             ->findOneBy (['name' => $categoryName]);
-        $repo = $this->getDoctrine ()
-            ->getRepository (Program::class);
-
-        $programs = $repo->findBy (['Category' => $category],
-            ['id' => 'DESC'], 3, 0
+        $programs = $this->getDoctrine ()
+            ->getRepository (Program::class)
+            ->findBy (['Category' => $category],
+            ['id' => 'DESC'], 6, 0
         );
         return $this->render ('wild/category.html.twig',
             ['category' => $category,
@@ -194,16 +197,7 @@ class WildController extends AbstractController
         ]);
     }
 }
-  //  /**
-  //   * @Route("wild/showByEpisode/show_season.html.twig")
-  //   */
 
-   /* public function returnPageSeason()
-    {
-
-    }
-}
-*/
 
 
 
