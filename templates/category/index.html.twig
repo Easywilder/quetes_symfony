@@ -1,13 +1,15 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
 
 
 {% block body %}
 
-// J'ARRIVE PAS À TROUVER !!! boucle sur les differentes catgories
+    {#  mettre un path sur les liens #}
+
     <ul>
         {% for xxxxx in categories %}
-            <li>{{ xxxxx.name }}</li>
+            <li><a href="">{{ xxxxx.name }}</a></li>
         {% endfor %}
     </ul>
+
 {% endblock %}
