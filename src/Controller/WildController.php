@@ -76,7 +76,7 @@ class WildController extends AbstractController
             ->findOneBy (['title' => mb_strtolower ($slug)]);
         if (!$program) {
             throw $this->createNotFoundException (
-                'No program with ' . $slug . ' rajoute le nom une serie!.'
+                'No program with ' . $slug . ' rajoute le en base de données!.'
             );
         }
 
