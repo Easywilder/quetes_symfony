@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Hello ActorController!</title>
+
+{% block body %}
+    <h1>{{ actor.name }}</h1>
+
+    <ul>
+        {% for program in actor.programs %}
+             <li>{{ program.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

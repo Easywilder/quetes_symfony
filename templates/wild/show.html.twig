@@ -5,20 +5,30 @@
 {% block body %}
 
     <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
+        <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
         <div class="media-body">
-            <h1 class="mt-0">{{  program.title}}</h1>
-            <p>{{ program.summary }}</p>
+            <h1 class="mt-0">{{ program.title }}</h1>
+             <p>{{ program.summary }}</p>
             <p>Categorie : {{ program.category.name }}</p>
             <h6>Saisons:</h6>
-                <ul>
-                    {%  for season in program.seasons %}
-                    <li> <a href="{{path('wild_show_season',{'id': season.id})}}">{{ season.number }}</a> </li>
+            <ul>
+                {% for season in program.seasons %}
+                    <li><a href="{{ path('wild_show_season',{'id': season.id}) }}">{{ season.number }}</a></li>
+                {% endfor %}
+            </ul>
 
-                </ul>
+            <strong>Acteur :</strong>
+            <ul>
+                {% for actor in program.actors %}
+                    <li>{{ actor.name }} </li>
+                {% else %}
+                    <li>Aucun acteur pour cette série</li>
+                {% endfor %}
+            </ul>
 
 
-            {% endfor %}
+
+
 
         </div>
     </div>
