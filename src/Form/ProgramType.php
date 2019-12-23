@@ -18,13 +18,13 @@ class ProgramType extends AbstractType
             ->add('summary')
             ->add('poster')
             ->add('Category', null, ['choice_label' => 'name'])
-        ;
-        $builder
             ->add('actors', EntityType::class, [
             'class' => Actor::class,
             'choice_label' => 'name',
             'multiple' => true,
             'expanded' => true,
+            'by_reference' => false,
+
         ]);
     }
 

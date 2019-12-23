@@ -8,8 +8,8 @@
 
     <ul>
         {% for program in actor.programs %}
-            <li>{{ program.title }}</li>
-{#  <li><a href="{{ path('wild_show', {'title': program.title}) }}">{{ program.title }}</a></li>#}
+            {#   <li>{{ program.title }}</li>#}
+<li><a href="{{ path('wild_show', {'id': program.id}) }}">{{ program.title }}</a></li>
 
 {% endfor %}
 </ul>
