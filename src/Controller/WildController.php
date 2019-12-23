@@ -57,35 +57,24 @@ class WildController extends AbstractController
     /**
      * Getting a program with a formatted slug for title
      *
-     * @param string $programTitle
+     *
+     * @param Program $program
      * @return Response
-     * @Route("/show/{slug<^[a-z0-9-]+$>}", defaults={"slug" = null}, name="show")
+     * @Route("/show/{id}", defaults={"id" = null}, name="show")
      */
-   /* public function show(string $programTitle) : Response
+    public function show(Program $program) : Response
     {
-        if (!$string) {
-            throw $this
-                ->createNotFoundException ('Merde!!!.');
-        }
-        $string = preg_replace (
-            '/-/',
-            ' ', ucwords (trim (strip_tags ($string)), "-")
-        );
-        $program = $this->getDoctrine ()
-            ->getRepository (Program::class)
-            ->findOneBy (['title' => mb_strtolower ($string)]);
         if (!$program) {
             throw $this->createNotFoundException (
-                'No program with ' . $string . ' rajoute le en base de données!.'
+                'No program with '  . ' rajoute le en base de données!.'
             );
         }
 
         return $this->render ('wild/show.html.twig', [
             'program' => $program,
-            'title' => $programTitle,
         ]);
-    }*/
-    public function show(?string $slug): Response
+    }
+   /* public function show(?string $slug): Response
     {
         if (!$slug) {
             throw $this
@@ -108,7 +97,7 @@ class WildController extends AbstractController
             'program' => $program,
             'slug' => $slug,
         ]);
-    }
+    } */
 
     /**
      * Getting a program with a formatted slug for title
