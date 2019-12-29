@@ -2,35 +2,44 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use App\Entity\Season;
 
 class SeasonFixtures extends Fixture implements DependentFixtureInterface
 {
-    const SEASONS = [
-        1 => ['Walking Dead'], ['American Horror Story'], ['Penny Dreadful'], ['The Haunting Of Hill House'], ['Love Death And Robots'],
-        2 => ['Walking Dead'], ['American Horror Story'], ['Penny Dreadful'],
-        3 => ['Walking Dead'], ['American Horror Story'], ['Penny Dreadful'],
-        4 => ['Walking Dead'], ['American Horror Story'],
-        5 => ['Walking Dead'], ['American Horror Story'],
-        6 => ['Walking Dead'], ['American Horror Story'],
-        7 => ['Walking Dead'], ['American Horror Story'],
+    const PROGRAMS = [
+        'Walking Dead',
+        'American Horror Story',
+        'Penny Dreadful',
+        'The Haunting Of Hill House',
+        'Love Death And Robots'
     ];
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
-        $i = 0;
-        foreach (self::SEASONS as $number => $data) {
-            $season = new Season();
-            $season->setProgram ($title);
-            $season->setNumber ($number);
-            $season->setYear ();
-            $i++;
-
-            $manager->flush ();
+        foreach (self::PROGRAMS as $programTitle) {
+            $beginning = rand (2010, 2020);
+            for ($i = 1; $i <= rand(1, 10); $i++) {
+                $season = new Season();
+                $season->setProgram ($this->getReference ($programTitle));
+                $season->setNumber ($i);
+                $season->setYear ($beginning + $i);
+                $season->setDescription ('ldldldlldldldldl');
+                $manager->persist ($season);
+            }
         }
+        $manager->flush();
     }
+
+    public function getDependencies()
+
+    {
+
+        return [ProgramFixtures::class];
+
+    }
+
 }
