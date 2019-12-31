@@ -42,33 +42,5 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
         return [ProgramFixtures::class];
 
     }
-/*
-class FakerFixtures extends Fixture
-{
-    public function load(ObjectManager $manager)
-    {
 
-        // On configure dans quelles langues nous voulons nos données
-        $faker = Faker\Factory::create('fr_FR');
-
-        // on créé 50 actors
-        for ($i = 0; $i < 50; $i++) {
-            $actor = new Actor();
-            $actor->setName($faker->name);
-
-            $manager->persist($actor);
-        foreach ($programs as $programTitle){
-                $actor->addProgram($this->getReference($programTitle));
-
-        }
-
-        $manager->flush();
-    }
-    public function getDependencies()
-
-    {
-
-        return [ProgramFixtures::class];
-
-    }*/
 }
