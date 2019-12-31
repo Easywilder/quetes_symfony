@@ -4,7 +4,8 @@
 
 {% block body %}
 
-    <h1>Toutes les séries de la table program : </h1>
+    <h1>Toutes les séries : </h1>
+    </br>
     {% for program in programs %}
         <div>
             <h2>{{ loop.index }} / <a href="{{ path('wild_show_program',{'id':program.id}) }}">{{ program.title }}</a> - Catégorie : {{ program.category.name }}</h2>

@@ -21,15 +21,19 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
     ];
     public function load(ObjectManager $manager)
     {
-        foreach (self::ACTORS as $actorName=>$programs) {
-            $actor = new Actor();
-            $actor->setName ($actorName);
-            foreach ($programs as $programTitle){
-                $actor->addProgram($this->getReference($programTitle));
+        //foreach (self::SEASONS as $seasonNumber)
+        $faker = Faker\Factory::create('us_US');
+        for ($i = 1; $i < 7; $i++) {
+            for ($j = 1; $j < 10; $j++) {
+                $actor = new Actor();
+                $actor->setName ($faker->name());
+
+                $actor->addProgram ($this->getReference ('program' . $i));
+
+                $manager->persist ($actor);
             }
-            $manager->persist ($actor);
         }
-        $manager->flush();
+        $manager->flush ();
     }
     public function getDependencies()
 
@@ -45,7 +49,7 @@ class FakerFixtures extends Fixture
     {
 
         // On configure dans quelles langues nous voulons nos données
-        $faker = Faker\Factory::create('fr_US');
+        $faker = Faker\Factory::create('fr_FR');
 
         // on créé 50 actors
         for ($i = 0; $i < 50; $i++) {
@@ -55,7 +59,7 @@ class FakerFixtures extends Fixture
             $manager->persist($actor);
         foreach ($programs as $programTitle){
                 $actor->addProgram($this->getReference($programTitle));
-    // dois-je adder et getter pour les catégories, épisodes, saisons (quête)
+
         }
 
         $manager->flush();
