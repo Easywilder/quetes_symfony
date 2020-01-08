@@ -60,7 +60,7 @@ class WildController extends AbstractController
      *
      * @param Program $program
      * @return Response
-     * @Route("/show/{id}", defaults={"id" = null}, name="show")
+     * @Route("/show/{slug}", defaults={"slug" = null}, name="show")
      */
     public function show(Program $program) : Response
     {
@@ -126,32 +126,31 @@ class WildController extends AbstractController
     /**
      * Getting a program with a formatted slug for title
      *
-     * @Route("/showByprogram/{id}",name="show_program")
-     * @param int $id
+     * @Route("/showByprogram/{slug}",name="show_program")
+     * @param
      * @return Response
      */
 
-    public function showByProgram(?int $id): Response
+    public function showByProgram(string $slug): Response
     {
-        if (!$id) {
+        if (!$slug) {
             throw $this
                 ->createNotFoundException ('No slug has been sent to find a program in program\'s table.');
         }
 
         $program = $this->getDoctrine ()
             ->getRepository (Program::class)
-            ->findOneBy (['id' =>($id)]);
+            ->findOneBy (['slug' =>($slug)]);
 
 
         if (!$program) {
             throw $this->createNotFoundException (
-                'No program with ' . $id . ' title, found in program\'s table.'
+                'No program with ' . $slug . ' title, found in program\'s table.'
             );
         }
 
         return $this->render ('wild/show.html.twig', [
             'program' => $program,
-            'id' => $id
         ]);
     }
 
@@ -208,9 +207,9 @@ class WildController extends AbstractController
         return $this->render ('wild/show_episode.html.twig', [
             'episode' => $episode,
         ]);
+
     }
 }
-
 
 
 

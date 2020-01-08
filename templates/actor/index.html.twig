@@ -1,16 +1,37 @@
-{% extends 'base.html.twig' %}
-{% block title %}{{ actor.name }}{% endblock %}
+<!DOCTYPE html>
 
-
+<title>Actor index</title>
 
 {% block body %}
-    <h1>{{ actor.name }}</h1>
+    <h1>Actor index</h1>
 
-    <ul>
-        {% for program in actor.programs %}
-            {#   <li>{{ program.title }}</li>#}
-<li><a href="{{ path('wild_show', {'id': program.id}) }}">{{ program.title }}</a></li>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for actor in actors %}
+            <tr>
+                <td>{{ actor.id }}</td>
+                <td>{{ actor.name }}</td>
+                <td>{{ actor.slug }}</td>
+                <td>
+                    <a href="{{ path('actor_show', {'slug': actor.slug}) }}">show</a>
+                    <a href="{{ path('actor_edit', {'slug': actor.slug}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-{% endfor %}
-</ul>
+    <a href="{{ path('actor_new') }}">Create new</a>
 {% endblock %}

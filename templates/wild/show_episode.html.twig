@@ -25,7 +25,7 @@
             Retour à la saison du l'épisode.
         </a></br>
 
-        <a href="{{ path('wild_show_program', {'id': episode.season.program.id }) }}">
+        <a href="{{ path('wild_show_program', {'slug': episode.season.program.slug }) }}">
             Retour à la fiche du programme {{episode.season.program.title}}
         </a>
     </p>

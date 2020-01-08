@@ -30,7 +30,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/category/add", name="category_add")
+     * @Route("/admin/category/add", name="category_add")
      * @param Request $request
      * @return Response
      */

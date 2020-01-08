@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Actor;
 use App\Entity\Program;
+use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -19,9 +20,17 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
          'Danai Gurira'=> ['Walking Dead'],
 
     ];
+
+    private $slugify;
+
+    public function __construct(Slugify $slugify)
+    {
+        $this->slugify = $slugify;
+    }
+
     public function load(ObjectManager $manager)
     {
-        //foreach (self::SEASONS as $seasonNumber)
+
         $faker = Faker\Factory::create('us_US');
         for ($i = 1; $i < 7; $i++) {
             for ($j = 1; $j < 10; $j++) {
@@ -29,6 +38,8 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
                 $actor->setName ($faker->name());
 
                 $actor->addProgram ($this->getReference ('program' . $i));
+                $slug = $this->slugify->generate($actor->getName());
+                $actor->setSlug($slug);
 
                 $manager->persist ($actor);
             }

@@ -20,15 +20,11 @@
             <strong>Acteur :</strong>
             <ul>
                 {% for actor in program.actors %}
-                    <li><a href="{{ path('actor',{'id': actor.id}) }}">{{ actor.name }} </a></li>
+                    <li><a href="{{ path('actor_show',{'slug': actor.slug}) }}">{{ actor.slug}} </a></li> //montrer à J.M (autre path : actor_show)
                 {% else %}
                     <li>Aucun acteur pour cette série</li>
                 {% endfor %}
             </ul>
-
-
-
-
 
         </div>
     </div>
