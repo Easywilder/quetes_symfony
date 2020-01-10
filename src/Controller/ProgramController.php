@@ -30,20 +30,29 @@ class ProgramController extends AbstractController
     /**
      * @Route("/new", name="program_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify /*, MailerInterface $mailer*/): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $slug = $slugify->generate($program->getTitle());
-            $program->setSlug($slug);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($program);
-            $entityManager->flush();
+            $slug = $slugify->generate ($program->getTitle ());
+            $program->setSlug ($slug);
+            $entityManager = $this->getDoctrine ()->getManager ();
+            $entityManager->persist ($program);
+            $entityManager->flush ();
 
-            return $this->redirectToRoute('program_index');
+            /* $email = (new Email())
+                 ->from('laure.symfony@gmail.com')
+                 ->to('laure.symfony@gmail.com')
+                 ->subject('Une nouvelle série vient d\'être publiée !')
+                 ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+
+             $mailer->send($email);
+       */
+
+            return $this->redirectToRoute ('program_index');
         }
 
         return $this->render('program/new.html.twig', [
