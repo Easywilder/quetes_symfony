@@ -3,7 +3,7 @@
 {% block title%} Program index {%endblock%}
 
 {% block body %}
-    <h1>Program index</h1>
+    <h1>Index des séries</h1>
 
     <table class="table">
         <thead>
@@ -24,8 +24,8 @@
                     <td>{{ program.summary }}</td>
                     <td><img alt="" class="poster" src="{{ program.poster }}"></td>
                     <td>
-                        <a href="{{ path('program_show', {'id': program.id}) }}">show</a>
-                        <a href="{{ path('program_edit', {'id': program.id}) }}">edit</a>
+                        <a href="{{ path('program_show', {'slug': program.slug}) }}">show</a>
+                        <a href="{{ path('program_edit', {'slug': program.slug}) }}">edit</a>
                     </td>
                 </tr>
             </div>
