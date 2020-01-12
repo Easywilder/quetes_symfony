@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+    {#  mettre un path sur les liens #}
+
+    <ul>
+        {% for xxxxx in categories %}
+            <li><a href="">{{ xxxxx.name }}</a></li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

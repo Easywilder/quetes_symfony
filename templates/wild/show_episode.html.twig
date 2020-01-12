@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3>Episode : {{ episode.title }}</h3>
+    {# {{ dump(episode.season.program.title) }}  #}
+
+    <p><strong>Synopsis</strong> : {{ episode.synopsis }}</p><br>
+    <p><strong>Série</strong> : {{ episode.season.program.title }}</p><br>
+    <p><strong>Saison</strong> : {{ episode.season.id }}</p><br>
+
+
+        {%  for episod in episode.season.episodes %}
+            <p>
+                <ul>
+                     <li><a href = "{{path('wild_show_episode',{'episodeid': episod.id})}}">{{ episod.title }}</a></li>
+                </ul>
+            </p>
+        {% endfor %}
+
+
+   <br>
+    <p>
+        <a href="{{ path('wild_show_season',{'id': episode.season.id}) }}">
+            Retour à la saison du l'épisode.
+        </a></br>
+
+        <a href="{{ path('wild_show_program', {'slug': episode.season.program.slug }) }}">
+            Retour à la fiche du programme {{episode.season.program.title}}
+        </a>
+    </p>
+{% endblock %}
