@@ -16,7 +16,7 @@ class Slugify
             'Ù' => 'u', 'Ú' => 'u', 'Û' => 'u', 'Ü' => 'u', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ü' => 'u',
             'Œ' => 'oe', 'œ' => 'oe', '?' => '','!' => '',',' => '','.' => '',':' => '',';' => ''];
         $result = str_replace(array_keys($caracteres), array_values($caracteres), $slug);
-        $result = preg_replace ('/[0-9]+/', '', $result);
+        $result = preg_replace ('/[^a-zA-Z-]/', '', $result);
         $result = preg_replace ('/[-{2,}]+/', '-', $result);
         $slug = strtolower (trim (strip_tags ($result)));
 
