@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\DBAL\Driver\AbstractOracleDriver;
 use App\Service\Slugify;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 
 /**
  * @Route("/program")
@@ -30,7 +33,7 @@ class ProgramController extends AbstractController
     /**
      * @Route("/new", name="program_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify /*, MailerInterface $mailer*/): Response
+    public function new(Request $request, Slugify $slugify, MailerInterface $mailer): Response
     {
         $program = new Program();
         $form = $this->createForm(ProgramType::class, $program);
@@ -43,14 +46,17 @@ class ProgramController extends AbstractController
             $entityManager->persist ($program);
             $entityManager->flush ();
 
-            /* $email = (new Email())
-                 ->from('laure.symfony@gmail.com')
+            $email = (new Email())
+                 ->from($this->getParameter ('mailer_from'))              //'laure.symfony@gmail.com')
                  ->to('laure.symfony@gmail.com')
                  ->subject('Une nouvelle série vient d\'être publiée !')
-                 ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+                 ->html($this->renderView ('program/notification.html.twig', [
+                        'program' => $program
+                 ]));
+
 
              $mailer->send($email);
-       */
+
 
             return $this->redirectToRoute ('program_index');
         }
