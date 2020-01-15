@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bd6106300c52c15880c5a8b0fab89f1b",
+    "content-hash": "fa512514e1ed5b2efd7ff878f857f7ea",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -6744,7 +6744,7 @@
         },
         {
             "name": "symfony/web-profiler-bundle",
-            "version": "v4.3.8",
+            "version": "v4.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-profiler-bundle.git",
